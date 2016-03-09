@@ -1,0 +1,28 @@
+---
+- name: collect output from junos device
+  junos_command:
+    commands:
+      - show version | display json
+      - show interfaces
+      - show configuration
+    provider: "{{ cli }}"
+  register: output
+
+# common facts
+#
+
+- name: set hostname fact
+  set_fact: hostname="{{ output.stdout[0]['software-information'][0]['host-name'][0].data }}"
+
+- name: set interfaces fact
+  set_fact: interfaces="{{ output.stdout[1] | regex_findall('^[ge|fx|lo]\\S+') }}"
+
+- name: set version fact
+  set_fact: version="{{ output.stdout[0]['software-information'][0]['junos-version'][0].data }}"
+
+- name: set config fact
+  set_fact: config="{{ output.stdout[2] }}"
+
+- name: set config_lines fact
+  set_fact: config_lines="{{ config.split('\n') }}"
+

@@ -1,0 +1,11 @@
+---
+links:
+
+  Loopback0:
+    ipv4: { address: 172.31.0.17, masklen: 32 }
+    enabled: yes
+    type: loopback
+
+
+
+

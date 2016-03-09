@@ -1,0 +1,27 @@
+---
+- name: configure eos network interfaces
+  eos_config:
+    lines:
+      - "no switchport"
+      - "description {{ item.value.description | default(default_description) }}"
+      - "ip address {{ item.value.ipv4.address }}/{{ item.value.ipv4.masklen }}"
+      - "{{ item.value.enabled | ternary('no shutdown', 'shutdown') }}"
+    parents: ["interface {{ item.key }}"]
+    provider: "{{ provider }}"
+    config: "{{ config }}"
+  with_dict: "{{ links }}"
+  when: item.value.type == 'routed'
+
+- name: configure eos loopback interfaces
+  eos_config:
+    lines:
+      - "description {{ item.value.description | default(default_description) }}"
+      - "ip address {{ item.value.ipv4.address }}/{{ item.value.ipv4.masklen }}"
+      - "{{ item.value.enabled | ternary('no shutdown', 'shutdown') }}"
+    parents: ["interface {{ item.key }}"]
+    provider: "{{ provider }}"
+    config: "{{ config }}"
+  with_dict: "{{ links }}"
+  when: item.value.type == 'loopback'
+
+

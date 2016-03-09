@@ -1,0 +1,11 @@
+---
+- name: get current configured ntp servers
+  set_fact: _servers="{{ config | regex_findall('^ntp server (\S+)') }}"
+
+- name: configure eos ntp parameters
+  eos_template:
+    src: "{{ state }}/eos.j2"
+    config: "{{ config }}"
+    provider: "{{ provider }}"
+  when: _servers
+

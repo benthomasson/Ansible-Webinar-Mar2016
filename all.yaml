@@ -1,0 +1,5 @@
+---
+- include: system.yaml
+- include: interfaces.yaml
+- include: ntp.yaml
+- include: snmp.yaml

@@ -1,0 +1,9 @@
+---
+- name: default eos interface
+  eos_config:
+    lines:
+      - "default interface {{ item.key }}"
+    provider: "{{ provider }}"
+    force: yes
+  with_dict: links
+

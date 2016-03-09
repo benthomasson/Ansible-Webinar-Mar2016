@@ -1,0 +1,11 @@
+---
+device_os: openswitch
+provider: "{{ cli }}"
+
+cli:
+  host: "{{ ops_cli_host | default('openswitch') }}"
+  port: "{{ ops_cli_port }}"
+  username: "{{ ops_cli_user | default('netop') }}"
+  password: "{{ ops_cli_pass | default('netop') }}"
+  transport: cli
+

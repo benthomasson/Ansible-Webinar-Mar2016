@@ -1,0 +1,13 @@
+---
+- name: manage network device interfaces
+  hosts: "{{ devices | default('all') }}"
+  gather_facts: no
+  connection: local
+
+  roles:
+    - { role: network_facts }
+
+  tasks:
+    - debug: msg="Node {{ hostname }} is type {{ device_os }} running software version {{ version }}"
+
+

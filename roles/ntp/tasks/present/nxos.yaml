@@ -1,0 +1,18 @@
+---
+- name: get current configured ntp servers
+  set_fact: _servers="{{ config | regex_findall('^ntp server (\S+) use-vrf (?!management)') }}"
+
+- name: remove old ntp servers
+  nxos_config:
+    lines:
+      - "no ntp server {{ item }}"
+    provider: "{{ provider }}"
+    force: yes
+  with_items: "{{ _servers }}"
+
+- name: configure nxos ntp parameters
+  nxos_template:
+    src: "{{ state }}/nxos.j2"
+    config: "{{ config }}"
+    provider: "{{ provider }}"
+

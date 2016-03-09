@@ -1,0 +1,5 @@
+---
+system_state: present
+ntp_state: present
+snmp_state: present
+bgp_state: absent

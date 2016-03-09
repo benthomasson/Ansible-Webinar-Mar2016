@@ -1,0 +1,20 @@
+---
+device_os: nxos
+provider: "{{ cli }}"
+
+cli:
+  host: "{{ inventory_hostname }}"
+  username: "{{ nxos_cli_user | default('admin') }}"
+  password: "{{ nxos_cli_pass | default('admin') }}"
+  transport: cli
+
+nxapi:
+  host: "{{ inventory_hostname }}"
+  username: "{{ nxos_nxapi_user | default('nxapi') }}"
+  password: "{{ nxos_nxapi_pass | default('password') }}"
+  transport: nxapi
+  use_ssl: no
+
+# NTP device specific settings
+#
+ntp_source_interface: mgmt0

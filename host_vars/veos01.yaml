@@ -1,0 +1,27 @@
+---
+links:
+
+  Loopback0:
+    ipv4: { address: 172.31.0.24, masklen: 32 }
+    enabled: yes
+    type: loopback
+
+  Ethernet1:
+    ipv4: { address: 172.31.11.1, masklen: 30}
+    enabled: yes
+    type: routed
+    connected_to: veos03.eng.ansible.com
+    remote_port: Ethernet1
+    validate_link: yes
+
+  Ethernet2:
+    ipv4: { address: 172.31.11.5, masklen: 30 }
+    enabled: yes
+    type: routed
+    connected_to: veos04.eng.ansible.com
+    remote_port: Ethernet1
+    validate_link: yes
+
+
+
+

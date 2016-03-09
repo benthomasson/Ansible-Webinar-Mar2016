@@ -1,0 +1,7 @@
+!
+ntp source-interface  {{ ntp_source_interface }}
+!
+{% for item in ntp_servers %}
+ntp server {{ item }} use-vrf management
+{% endfor %}
+!

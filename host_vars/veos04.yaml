@@ -1,0 +1,21 @@
+---
+links:
+
+  Loopback0:
+    ipv4: { address: 172.31.0.27, masklen: 32 }
+    enabled: yes
+    type: loopback
+
+  Ethernet1:
+    ipv4: { address: 172.31.11.6, masklen: 30}
+    enabled: yes
+    type: routed
+
+  Ethernet2:
+    ipv4: { address: 172.31.12.6, masklen: 30 }
+    enabled: yes
+    type: routed
+
+
+
+

@@ -1,0 +1,10 @@
+---
+- name: get current configured ntp servers
+  set_fact: _servers="{{ config | regex_findall('^ntp server (\S+)') }}"
+
+- name: configure nxos ntp parameters
+  nxos_template:
+    src: "{{ state }}/nxos.j2"
+    config: "{{ config }}"
+    provider: "{{ provider }}"
+

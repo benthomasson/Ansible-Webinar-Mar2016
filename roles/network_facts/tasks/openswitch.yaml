@@ -1,0 +1,20 @@
+---
+- name: collect device facts
+  ops_command:
+    commands:
+      - show system
+      - show running-config
+    provider: "{{ cli }}"
+  register: output
+
+- name: set hostname fact
+  set_fact: hostname="{{ output.stdout[1] | regex_search('^hostname (\S+)', '\\1') | first }}"
+
+- name: set version fact
+  set_fact: version="{{ output.stdout[0] | regex_search('Version\s+.\s(\S+)', '\\1') | first }}"
+
+- name: set config fact
+  set_fact: config="{{ output.stdout[1] }}"
+
+- name: set config_lines fact
+  set_fact: config_lines="{{ config.split('\n') }}"

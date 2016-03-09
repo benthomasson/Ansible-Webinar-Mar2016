@@ -1,0 +1,7 @@
+!
+no ntp source
+!
+{% for item in _servers %}
+no ntp server {{ item }}
+{% endfor %}
+!

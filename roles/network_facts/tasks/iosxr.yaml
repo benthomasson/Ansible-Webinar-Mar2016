@@ -1,0 +1,29 @@
+---
+- name: collect output from iosxr device
+  iosxr_command:
+    commands:
+      - show version
+      - show running-config
+      - show interfaces
+    provider: "{{ cli }}"
+  register: output
+
+# common facts
+#
+
+- name: set hostname fact
+  set_fact: hostname="{{ output.stdout[1] | regex_search('^hostname (.+)$', '\\1') | first }}"
+
+- name: set interfaces fact
+  set_fact: interfaces="{{ output.stdout[2] | regex_findall('^[B|C|F|G|H|I|L|M|N|P|S|T]\\S+') }}"
+
+- name: set version fact
+  set_fact: version="{{ output.stdout[0] | regex_search('Version (\\S+)\\[', '\\1') | first }}"
+
+- name: set config fact
+  set_fact: config="{{ output.stdout[1] }}"
+
+- name: set config_lines fact
+  set_fact: config_lines="{{ config.split('\n') }}"
+
+

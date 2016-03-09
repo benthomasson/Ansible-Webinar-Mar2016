@@ -1,0 +1,10 @@
+snmp-server contact {{ snmp_contact }}
+snmp-server location {{ snmp_location }}
+
+{% for item in communities.readonly %}
+snmp-server community {{ item }} group network-operator
+{% endfor %}
+
+{% for item in communities.readwrite %}
+snmp-server community {{ item }} group network-admin
+{% endfor %}

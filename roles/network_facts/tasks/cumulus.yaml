@@ -1,0 +1,9 @@
+- name: collect device facts
+  setup:
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: set hostname fact
+  set_fact: hostname="{{ ansible_hostname }}"
+
+- name: set version fact
+  set_fact: version="{{ ansible_lsb.release }}"

@@ -1,0 +1,29 @@
+---
+- name: get current configured snmp communities
+  set_fact: _communities="{{ config | regex_findall('^snmp-server community (\S+)') }}"
+
+- name: get desired snmp communities
+  set_fact: _desired="{{ snmp_communities | map(attribute='name') | list }}"
+
+- name: remove old communities
+  eos_config:
+    lines:
+      - "no snmp-server community {{ item }}"
+    provider: "{{ provider }}"
+    force: yes
+  with_items: "{{ _communities | difference(_desired) }}"
+
+- name: configure eos snmp parameters
+  eos_template:
+    src: "{{ state }}/eos.j2"
+    config: "{{ config }}"
+    provider: "{{ provider }}"
+
+#- name: configure snmp_managers acl
+#  eos_config:
+#    lines: "{{ eos_snmp_managers_acl_entries }}"
+#    parents: ["ip access-list standard SNMP_MANAGERS"]
+#    before: ["no ip access-list standard SNMP_MANAGERS"]
+#    match: exact
+#    config: "{{ config }}"
+#    provider: "{{ provider }}"

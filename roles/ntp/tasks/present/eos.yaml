@@ -1,0 +1,19 @@
+---
+- name: get current configured ntp servers
+  set_fact: _servers="{{ config | regex_findall('^ntp server (\S+)') }}"
+
+- name: remove old ntp servers
+  eos_config:
+    lines:
+      - "no ntp server {{ item }}"
+    provider: "{{ provider }}"
+    force: yes
+  with_items: "{{ _servers }}"
+  when: item not in ntp_servers
+
+- name: configure eos ntp parameters
+  eos_template:
+    src: "{{ state }}/eos.j2"
+    config: "{{ config }}"
+    provider: "{{ provider }}"
+
