@@ -1,0 +1,8 @@
+---
+- name: configure ios system settings
+  ios_template:
+    src: "{{playbook_dir }}/templates/{{ state }}/ios.j2"
+    config: "{{ config }}"
+    provider: "{{ provider }}"
+
+
