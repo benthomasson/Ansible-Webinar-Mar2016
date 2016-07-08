@@ -4,6 +4,12 @@
   gather_facts: no
   connection: local
 
+  pre_tasks:
+    - name: checkout latest config templates
+      git:
+        repo: https://github.com/privateip/config-templates.git
+        dest: "{{ playbook_dir }}/templates"
+
   roles:
     - role: system_vcs
       state: present

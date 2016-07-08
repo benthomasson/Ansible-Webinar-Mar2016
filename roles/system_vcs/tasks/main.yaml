@@ -1,9 +1,4 @@
 ---
-- name: checkout latest config templates
-  git:
-    repo: https://github.com/privateip/config-templates.git
-    dest: "{{ playbook_dir }}/templates"
-
 - name: include device specific tasks
   include: "{{ item }}"
   with_first_found:
