@@ -9,6 +9,7 @@
       git:
         repo: https://github.com/privateip/config-templates.git
         dest: "{{ playbook_dir }}/templates"
+      run_once: yes
 
   roles:
     - role: system_vcs
