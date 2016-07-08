@@ -1,10 +1,17 @@
 ---
-- name: configure junos system parameters
-  junos_config:
-    lines:
-      - set system host-name {{ inventory_hostname }}
+#- name: configure junos system parameters
+#  junos_config:
+#    lines:
+#      - set system host-name {{ inventory_hostname }}
+#    config: "{{ config }}"
+#    provider: "{{ cli }}"
+
+- name: configure iosxr system settings
+  junos_template:
+    src: "{{ state }}/junos.j2"
     config: "{{ config }}"
-    provider: "{{ cli }}"
+    provider: "{{ provider }}"
+    config_format: set
 
 
 
