@@ -1,0 +1,50 @@
+---
+- name: configure nxos system properties
+  hosts: nxos
+
+  roles:
+    - role: system
+      state: present
+      system_hostname: "{{ inventory_hostname }}"
+      system_domain_name: eng.ansible.com
+      system_source_interface: "{{ system.source_interface }}"
+      system_name_servers:
+        - 172.26.1.1
+
+- name: configure ios system properties
+  hosts: ios
+
+  roles:
+    - role: system
+      state: present
+      system_hostname: "{{ inventory_hostname }}"
+      system_domain_name: eng.ansible.com
+      system_source_interface: "{{ system.source_interface }}"
+      system_name_servers:
+        - 172.26.1.1
+
+
+- name: configure iosxr system properties
+  hosts: iosxr
+
+  roles:
+    - role: system
+      state: present
+      system_hostname: "{{ inventory_hostname }}"
+      system_domain_name: eng.ansible.com
+      system_source_interface: "{{ system.source_interface }}"
+      system_name_servers:
+        - 172.26.1.1
+
+- name: configure junos system properties
+  hosts: junos
+
+  roles:
+    - role: system
+      state: present
+      system_hostname: "{{ inventory_hostname }}"
+      system_domain_name: eng.ansible.com
+      system_source_interface: "{{ system.source_interface }}"
+      system_name_servers:
+        - 172.26.1.1
+
